@@ -12,6 +12,7 @@
 const http = require('http');           // Módulo para criar servidor HTTP
 const url = require('url');             // Módulo para parsing de URLs
 const querystring = require('querystring'); // Módulo para parsing de query strings
+const pagesData = require('./routes/pages');
 
 // Importação de módulos externos (instalados via npm)
 const express = require('express');     // Framework web para Node.js
@@ -40,7 +41,7 @@ const app = express();
 app.use(cors());                        // Habilita CORS para requisições cross-origin
 app.use(express.json());                // Permite parsing de JSON nas requisições
 app.use(express.urlencoded({ extended: true })); // Permite parsing de dados de formulário
-
+app.use(pagesData);
 /**
  * ROTAS BÁSICAS
  * =============
@@ -343,7 +344,7 @@ app.get('/successo.html', (req, res) => {
     const fs = require('fs');
     
     try {
-        const successPage = fs.readFileSync(path.join(__dirname, 'templates', 'successo.html'), 'utf8');
+        const successPage = fs.readFileSync(path.join(__dirname, 'views', 'successo.html'), 'utf8');
         res.send(successPage);
     } catch (error) {
         console.error('Erro ao carregar página de sucesso:', error);
@@ -364,7 +365,7 @@ app.get('/login', (req, res) => {
     const fs = require('fs');
 
     try {
-        const loginPage = fs.readFileSync(path.join(__dirname, 'templates', 'index.html'), 'utf8');
+        const loginPage = fs.readFileSync(path.join(__dirname, 'views', 'index.html'), 'utf8');
         res.send(loginPage);
     } catch (error) {
         console.error('Erro ao carregar página de login:', error);
@@ -398,7 +399,7 @@ app.get('/sucesso.html', (req, res) => {
     const fs = require('fs');
     
     try {
-        const successPage = fs.readFileSync(path.join(__dirname, 'templates', 'sucesso.html'), 'utf8');
+        const successPage = fs.readFileSync(path.join(__dirname, 'views', 'sucesso.html'), 'utf8');
         res.send(successPage);
     } catch (error) {
         console.error('Erro ao carregar página de sucesso:', error);
@@ -409,7 +410,7 @@ app.get('/sucesso.html', (req, res) => {
 // =============================================================================
 // MIDDLEWARE PARA SERVIR ARQUIVOS ESTÁTICOS (mantenha esta linha)
 // =============================================================================
-app.use(express.static('templates'));
+app.use(express.static('views'));
 
 // =============================================================================
 // SUAS OUTRAS ROTAS EXISTENTES (mantenha-as aqui)
@@ -442,7 +443,7 @@ app.use('*', (req, res) => {
     // ... seu código existente
 });
 
-app.use(express.static('templates'));
+app.use(express.static('views'));
 
 // ROTA DE STATUS DA API
 app.get('/api/status', (req, res) => {
@@ -533,7 +534,7 @@ app.get('/login', (req, res) => {
     const fs = require('fs');
 
     try {
-        const loginPage = fs.readFileSync(path.join(__dirname, 'templates', 'index.html'), 'utf8');
+        const loginPage = fs.readFileSync(path.join(__dirname, 'views', 'index.html'), 'utf8');
         res.send(loginPage);
     } catch (error) {
         console.error('Erro ao carregar página de login:', error);

@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_views, request
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_views("index.html")
 
 @app.route("/cadastro", methods=["POST"])
 def cadastro():
@@ -24,9 +24,9 @@ def cadastro():
 
     if not nome or not email or not senha or not nascimento:
         erro = "Por favor, preencha todos os campos!"
-        return render_template("index.html", erro=erro)
+        return render_views("index.html", erro=erro)
 
-    return render_template("sucesso.html", nome=nome)
+    return render_views("sucesso.html", nome=nome)
 
 if __name__ == "__main__":
     app.run(debug=True)
